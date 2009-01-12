@@ -12,11 +12,15 @@ class DemoApp
   end
 end
 
-a = Shoes.app do
+# This positioning doesn't appear to work... I wonder how to do it right?
+a = Shoes.app :left => 10, :top => 10 do
   @apps = []
   para "Enter shoes code and submit to see a demo of what it would look like"
   @e = edit_box :height => 200, :width => '100%'
+  @e.focus
 
+  # Would like to have hotkeys for each button, but its unclear how to catch
+  # things like ctrl-s from inside the edit_box
   @submit = button "Submit"
   @submit.click { @apps.push DemoApp.new(@e.text) }
 
