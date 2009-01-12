@@ -1,0 +1,10 @@
+This is a tiny app built with Shoes (http://wiki.github.com/why/shoes) meant
+to improve the development cycle for building other apps with shoes.
+
+I found that as I was trying to learn Shoes, I often wanted to tinker with
+things and see what they would look like, but the cycle of modifying the code,
+saving it, and reopening it with Shoes was annoying.  This app lets you input
+shoes code directly into a text box and with one click see what it rendered
+by shoes.
+
+I hope to add keyboard shortcuts as I better understand Shoes event handling
