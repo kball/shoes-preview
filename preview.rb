@@ -1,10 +1,10 @@
 class DemoApp
   def initialize(code)
-    @clearode = code
+    @code = code
     @app = if code.grep(/Shoes.app/).empty?
       eval "Shoes.app { #{code} }"
     else
-      eval @clearode
+      eval @code
     end
   end
   def close
