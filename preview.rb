@@ -7,6 +7,9 @@ class DemoApp
       eval @code
     end
   end
+  def id
+    @app.id
+  end
   def close
     @app.close
   end
@@ -28,8 +31,11 @@ a = Shoes.app :left => 10, :top => 10 do
   @clear.click {@e.text = ''}
 
   @delete = button "Remove Demo Apps"
-  @delete.click do 
-    @apps.each {|a| a.close}
+  @delete.click do
+    open_app_ids = Shoes.APPS.map {|a| a.id}
+    @apps.each do |a| 
+      a.close if open_app_ids.include? a.id
+    end
     @apps = []
   end
 
