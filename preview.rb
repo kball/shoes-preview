@@ -17,6 +17,7 @@ end
 
 # This positioning doesn't appear to work... I wonder how to do it right?
 a = Shoes.app :left => 10, :top => 10 do
+  Shoes.log.clear
   @apps = []
   para "Enter shoes code and submit to see a demo of what it would look like"
   @e = edit_box :height => 200, :width => '100%'
@@ -28,7 +29,11 @@ a = Shoes.app :left => 10, :top => 10 do
   @submit.click { @apps.push DemoApp.new(@e.text) }
 
   @clear = button "Clear"
-  @clear.click {@e.text = ''}
+  @clear.click do 
+    @e.text = ''
+    @err.text =''
+    Shoes.log.clear
+   end
 
   @delete = button "Remove Demo Apps"
   @delete.click do
@@ -44,5 +49,12 @@ a = Shoes.app :left => 10, :top => 10 do
     filename = ask_open_file
     @e.text = File.read(filename)
   end
+  every(1) do
+    Shoes.log.each do |typ, msg, at, mid, rbf, rbl|
+      @err.text = "#{msg}"
+    end
+  end
   @e.focus
+  para "============= Error Messages ==============", :align => 'center'
+  @err = edit_box :height => 200, :width => '100%'
 end
