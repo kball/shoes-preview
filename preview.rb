@@ -54,6 +54,14 @@ a = Shoes.app :left => 10, :top => 10 do
       @err.text = "#{msg}"
     end
   end
+
+  @save = button "Save to file"
+  @save.click do
+    filename = ask_save_file
+    f = File.open(filename, 'w')
+    f.write(@e.text)
+    f.close
+  end
   @e.focus
   para "============= Error Messages ==============", :align => 'center'
   @err = edit_box :height => 200, :width => '100%'
