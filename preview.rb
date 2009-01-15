@@ -1,17 +1,6 @@
-class DemoApp
-  def initialize(code)
-    @code = code
-    @app = if code.grep(/Shoes.app/).empty?
-      eval "Shoes.app { #{code} }"
-    else
-      eval @code
-    end
-  end
-  def id
-    @app.id
-  end
-  def close
-    @app.close
+class Shoes::App
+  def supports_onclose?
+    methods.include? 'onclose'
   end
 end
 
@@ -26,12 +15,25 @@ a = Shoes.app :left => 10, :top => 10 do
   # Would like to have hotkeys for each button, but its unclear how to catch
   # things like ctrl-s from inside the edit_box
   @submit = button "Submit"
-  @submit.click { @apps.push DemoApp.new(@e.text) }
+  @submit.click do 
+    app = if @e.text.grep(/Shoes.app/).empty?
+      eval "Shoes.app { #{@e.text} }"
+    else
+      eval @code
+    end
+    @apps.push app
+    if app.supports_onclose?
+      app.onclose do
+        Shoes.info "A sample app just closed"
+        @apps.delete(app) 
+      end
+    end
+  end
 
   @clear = button "Clear"
   @clear.click do 
     @e.text = ''
-    @err.text =''
+    @err.text = ''
     Shoes.log.clear
    end
 
