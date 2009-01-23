@@ -19,7 +19,7 @@ a = Shoes.app :left => 10, :top => 10 do
     app = if @e.text.grep(/Shoes.app/).empty?
       eval "Shoes.app { #{@e.text} }"
     else
-      eval @code
+      eval @e.text
     end
     @apps.push app
     if app.supports_onclose?
@@ -28,6 +28,11 @@ a = Shoes.app :left => 10, :top => 10 do
         @apps.delete(app) 
       end
     end
+  end
+
+  @no_app = button "Run Without App"
+  @no_app.click do
+    eval @e.text
   end
 
   @clear = button "Clear"
