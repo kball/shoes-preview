@@ -1,3 +1,4 @@
+require 'shoe_shine'
 class Shoes::App
   def supports_onclose?
     methods.include? 'onclose'
@@ -6,7 +7,7 @@ end
 
 # This positioning doesn't appear to work... I wonder how to do it right?
 a = Shoes.app :left => 10, :top => 10 do
-  Shoes.log.clear
+  #Shoes.log.clear
   @apps = []
   para "Enter shoes code and submit to see a demo of what it would look like"
   @e = edit_box :height => 200, :width => '100%'
@@ -39,7 +40,7 @@ a = Shoes.app :left => 10, :top => 10 do
   @clear.click do 
     @e.text = ''
     @err.text = ''
-    Shoes.log.clear
+    #Shoes.log.clear
    end
 
   @delete = button "Remove Demo Apps"
